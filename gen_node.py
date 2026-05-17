@@ -115,5 +115,5 @@ NODE_CLASS_MAPPINGS = {
     "PromptBuilderParams": PromptBuilderParams,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "PromptBuilderParams": "PB Params",
+    "PromptBuilderParams": "Grimoire Params",
 }

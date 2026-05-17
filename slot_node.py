@@ -73,6 +73,6 @@ NODE_CLASS_MAPPINGS = {
     "PromptBuilderJoin": PromptBuilderJoin,
 }
 NODE_DISPLAY_NAME_MAPPINGS = {
-    "PromptBuilderSlot": "PB Slot",
-    "PromptBuilderJoin": "PB Join",
+    "PromptBuilderSlot": "Grimoire Slot",
+    "PromptBuilderJoin": "Grimoire Join",
 }

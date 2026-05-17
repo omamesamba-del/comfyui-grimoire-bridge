@@ -20,7 +20,7 @@ Restart ComfyUI. The nodes will appear under the **PromptBuilder** category.
 
 ## Nodes
 
-### PB Slot
+### Grimoire Slot
 
 A text slot controlled by grimoire. Place one node per text area in your workflow.
 
@@ -35,11 +35,11 @@ A text slot controlled by grimoire. Place one node per text area in your workflo
 
 Connect the output to any `STRING` input — typically a CLIP Text Encode node. When grimoire sends a prompt to the matching slot name, the node picks it up automatically on the next queue run.
 
-**Example:** Add two PB Slot nodes named `positive` and `negative`, connect each to a CLIP Text Encode node, then set grimoire to use the same slot names.
+**Example:** Add two Grimoire Slot nodes named `positive` and `negative`, connect each to a CLIP Text Encode node, then set grimoire to use the same slot names.
 
 ---
 
-### PB Join
+### Grimoire Join
 
 Joins multiple text strings with a configurable separator. Empty inputs are skipped automatically.
 
@@ -52,11 +52,11 @@ Joins multiple text strings with a configurable separator. Empty inputs are skip
 |--------|------|
 | `text` | STRING |
 
-Useful for combining a PB Slot output with a fixed prefix or suffix.
+Useful for combining a Grimoire Slot output with a fixed prefix or suffix.
 
 ---
 
-### PB Params
+### Grimoire Params
 
 An all-in-one node that receives generation parameters from grimoire and loads the checkpoint. Replaces the separate CheckpointLoader + KSampler + EmptyLatentImage setup.
 
@@ -77,7 +77,7 @@ An all-in-one node that receives generation parameters from grimoire and loads t
 | `denoise` | FLOAT | Denoise strength |
 | `upscale_by` | FLOAT | Hires upscale factor |
 
-When grimoire sends generation settings, PB Params updates automatically on the next queue run. Parameters not sent by grimoire fall back to the values set in the node itself.
+When grimoire sends generation settings, Grimoire Params updates automatically on the next queue run. Parameters not sent by grimoire fall back to the values set in the node itself.
 
 ## API Endpoints
 
@@ -97,7 +97,7 @@ These endpoints are added to ComfyUI's HTTP server by the extension:
 
 - The extension is passive — it does not interfere with the queue or generation pipeline
 - Slots update on the **next queue run** (ComfyUI re-evaluates `IS_CHANGED` per execution)
-- Works with any workflow; PB Slot and PB Params are independent and can be used separately
+- Works with any workflow; Grimoire Slot and Grimoire Params are independent and can be used separately
 
 ---
 
