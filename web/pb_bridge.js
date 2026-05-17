@@ -75,13 +75,17 @@ app.registerExtension({
             }
         });
 
-        // ── スキャン要求 → スロット名を収集して登録 ──────────────────────
+        // ── スキャン要求 → スロット名を収集して登録 + 現在テキストをプッシュ ──
         api.addEventListener("pb:request-scan", async () => {
             const slots = [];
+            const texts = {};
             for (const node of app.graph._nodes ?? []) {
-                if (node.type === "PromptBuilderSlot") {
-                    const w = node.widgets?.find(w => w.name === "slot_name");
-                    if (w?.value) slots.push(w.value);
+                if (node.type !== "PromptBuilderSlot") continue;
+                const slotW = node.widgets?.find(w => w.name === "slot_name");
+                const textW = node.widgets?.find(w => w.name === "text");
+                if (slotW?.value) {
+                    slots.push(slotW.value);
+                    texts[slotW.value] = textW?.value ?? "";
                 }
             }
             try {
@@ -90,6 +94,14 @@ app.registerExtension({
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ slots }),
                 });
+                // 現在のノードテキストをサーバに同期（import で読み取れるよう）
+                for (const [slot, text] of Object.entries(texts)) {
+                    await fetch("/pb/set-slot", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ slot, text, mode: "overwrite", trigger: false }),
+                    });
+                }
             } catch (e) {
                 console.warn("[PB Bridge] register-slots failed:", e);
             }
