@@ -1,5 +1,8 @@
+"""grimoire Bridge — ComfyUI Extension v2.0.0"""
 from aiohttp import web
 from server import PromptServer
+
+_BRIDGE_VERSION = "2.0.0"
 
 from .state import slot_state, gen_params, known_slots
 from .slot_node import (
@@ -23,7 +26,7 @@ routes = PromptServer.instance.routes
 
 @routes.get("/pb/health")
 async def pb_health(request):
-    return web.json_response({"ok": True, "version": "2.0"})
+    return web.json_response({"ok": True, "version": _BRIDGE_VERSION})
 
 
 # ── Slot endpoints ─────────────────────────────────────────────────────────
